@@ -129,10 +129,30 @@
 	localhost/fbasso-app1    latest         8e35357216b3  3 minutes ago  55.7 MB
 	docker.io/library/nginx  1.10.1-alpine  2cd900f340dd  8 years ago    55.7 MB
 	```
+
+	Cuando la imagen ya se encuentre creada, es necesario asignar tag, para esto, debemos conocer el namespace de nuestro registry, el cual aparece dentro del mismo registry
+	<img width="1346" height="570" alt="image" src="https://github.com/user-attachments/assets/5aad128e-3e68-4fd3-9d65-f3dde4d5160b" />
+
+ 	Con esta informaicón definimos el tag en la imagen recién creada
+	```
+	podman tag localhost/fbasso-app1:latest iad.ocir.io/iders9nkzgkh/fbasso-app1:latest
+	```
+ 	Volvemos a listar nuestras imágenes y debemos ver la que creamos recién:
+ 	```
+ 	felipe_bas@cloudshell:Docker (us-ashburn-1)$ podman images
+	REPOSITORY                            TAG            IMAGE ID      CREATED        SIZE
+	iad.ocir.io/iders9nkzgkh/fbasso-app1  latest         8e35357216b3  8 minutes ago  55.7 MB
+	localhost/fbasso-app1                 latest         8e35357216b3  8 minutes ago  55.7 MB
+	docker.io/library/nginx               1.10.1-alpine  2cd900f340dd  8 years ago    55.7 MB
+	```
+
+	Para poder acceder al registry debemos crear un token de autenticación dentro de la cuenta de usario ir a User Settings
+	<img width="1362" height="554" alt="image" src="https://github.com/user-attachments/assets/b57e9660-07b1-40a4-843d-d36cf3f784b6" />
+
+	Entrar a la pestaña Tokens and keys y click en Generate Token
+	<img width="1358" height="614" alt="image" src="https://github.com/user-attachments/assets/ee6f681f-e3dc-4517-a2b9-559fc07370a2" />
+	Es importante señalar que el token se crea y después no se puede vovler a mostrar, por lo que debe ser almacenado en un lugar seguro.
 	
-	```
-	$ oci setup config
-	```
 	Dentro de esta configuración se debe definir
 	```
 	CAMPO									DONDE ENCONTRAR
