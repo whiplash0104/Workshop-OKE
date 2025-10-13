@@ -99,27 +99,35 @@
  	<img width="1361" height="503" alt="image" src="https://github.com/user-attachments/assets/66338703-4fa3-4c7f-8867-8f0fc03c2bf6" />
 
  
-7. Descargar repositorio git con código de app1 mediante el comando
+6. Descargar repositorio git con código de app1 mediante el comando
 	```
 	git clone https://github.com/whiplash0104/Workshop-Sura.git
 	```
 	<img width="1359" height="325" alt="image" src="https://github.com/user-attachments/assets/40138ed1-e6f9-4500-8277-6b194589a13e" />
 
-8. Crear OCI Setup Configurar
-	Crear directorio .oci
+7. Crear imagen de contenedor
+	Ir al directorio Workshop-Sura/Docker
 	```
-	$ mkdir ~/.oci
+	cd Workshop-Sura/Docker
 	```
-	
-	Crear Llave privada y cambiar permisos
+ 	Dentro del directorio crear la imagen con el mimso nombre del registry (primera letra del nombre apellido y -app1), asignar el tag latest, como por ejemplo:
 	```
-	$ openssl genrsa -out ~/.oci/oci_api_key.pem 2048
-	$ chmod go-rwx ~/.oci/oci_api_key.pem
+	podman build --tag fbasso-app1:latest -f Dockerfile
+ 	```
+	Seleccionar la imagen docker.io/library/nginx:1.10.1-alpine
+	<img width="1359" height="600" alt="image" src="https://github.com/user-attachments/assets/68ba4f30-4e9c-4783-af94-fa3b0dcea437" />
+
+	Una vez creada la imagen validarla con el comando
 	```
-	
-	Crear llave pública
+	podman images
 	```
-	$ openssl rsa -pubout -in ~/.oci/oci_api_key.pem -out ~/.oci/oci_api_key_public.pem
+
+	Esto mostrará las 2 impagenes que tenemos, la de la palicaicón recién creada y la de nginx
+	```
+	felipe_bas@cloudshell:Docker (us-ashburn-1)$ podman images
+	REPOSITORY               TAG            IMAGE ID      CREATED        SIZE
+	localhost/fbasso-app1    latest         8e35357216b3  3 minutes ago  55.7 MB
+	docker.io/library/nginx  1.10.1-alpine  2cd900f340dd  8 years ago    55.7 MB
 	```
 	
 	```
