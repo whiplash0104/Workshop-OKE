@@ -207,13 +207,68 @@
  	Una vez creados todos los componentes, validar con los comandos:
 	```
 	kubectl get all -n ns-app1
- 	kubectl get services -n ns-app
- 	kubectl get ingress -n ns-app
+ 	kubectl get services -n ns-app1
+ 	kubectl get ingress -n ns-app1
  	```
 	Debemos obtener un resultado similar a este:
 	<img width="1362" height="507" alt="image" src="https://github.com/user-attachments/assets/3430a7af-5ae0-495e-84c5-6f24ce4d70a3" />
  
-9. dassd
-	adsadsa
-11. 
-12. dadasdsa
+9. Una vez validada la creación de los 3 componentes, entrar desde el navigador web a la ip pública del servicio apuntando a la app1, como ejemplo:
+	```
+	felipe_bas@cloudshell:~ (us-ashburn-1)$ kubectl get service -n ingress-nginx
+	NAME                                 TYPE           CLUSTER-IP      EXTERNAL-IP       PORT(S)                      AGE
+	ingress-nginx-controller             LoadBalancer   10.96.105.210   129.153.239.239   80:31526/TCP,443:31271/TCP   11d
+	ingress-nginx-controller-admission   ClusterIP      10.96.86.38     <none>            443/TCP                      11d	
+	```
+ 	<img width="939" height="388" alt="image" src="https://github.com/user-attachments/assets/3e03b248-e219-4d2b-ba26-cabef43a368e" />
+
+	En este ejemplo debemos ingresar a http://129.153.239.239/app1, en el caso de cada uno, se debe cambiar la ip pública
+ 
+10. Una vez creado el servicio, debemos crear un nuevo registry
+    ```
+	Developer Services > Container Registry
+	Access: Public
+    Nombre: primera legtra de nombre-app2
+    Click en Create
+    ```
+	<img width="950" height="383" alt="image" src="https://github.com/user-attachments/assets/edd1f3c4-dd83-46fb-b308-8757db8a2c01" />
+
+12. Para validar el funcionamiento del ingress controller, realizar los mismos pasos anteriores, pero descargando el siguiente git:
+	```
+	git clone https://github.com/whiplash0104/ingress-app2.git
+
+ 	cd ingress-app2/Docker/
+ 	podman build --tag fbasso-app2:latest -f Dockerfile
+ 	podman tag localhost/fbasso-app2:latest iad.ocir.io/iders9nkzgkh/fbasso-app2:latest
+ 	podman push iad.ocir.io/iders9nkzgkh/fbasso-app2:latest
+	```
+ 	<img width="956" height="410" alt="image" src="https://github.com/user-attachments/assets/95e052f5-8d61-4c99-8483-1d2c43fc73c2" />
+
+13. Dentro del directorio ingress-app2/yaml/ editar el archivo dp2.yaml, cambiando la url de la imagen por la recién creada
+	```
+	vi dp2.yaml
+ 	iad.ocir.io/iders9nkzgkh/fbasso-app2:latest
+ 	```
+ 	<img width="958" height="404" alt="image" src="https://github.com/user-attachments/assets/a3e2aae5-1604-47ab-a34f-9ffc2dc80d54" />
+
+	Crear namespace ns-app2
+	```
+	kubectl create ns ns-app2
+	```
+ 
+ 	Luego crear el deployment, el servicio y el ingress controller
+ 	```
+	kubectl apply -f dp2.yaml
+  	kubectl apply -f svc2.yaml
+  	kubectl apply -f ing2.yaml
+ 	```
+
+	Validar que todo esté creado de forma correcta
+	```
+	kubectl get all -n ns-app2
+ 	kubectl get services -n ns-app2
+ 	kubectl get ingress -n ns-app2
+ 	```
+ 	<img width="956" height="386" alt="image" src="https://github.com/user-attachments/assets/34750743-3c9e-4b3a-9e07-2c49dcd479bd" />
+
+	Para revisar si el ingress funciona de forma correcta entrar a la misma url anterior, pero cambiar pp1 por app2 http://129.153.239.239/app2
