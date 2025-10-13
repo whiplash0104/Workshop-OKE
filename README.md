@@ -70,10 +70,42 @@
 	Definir el nombre del repositorio como: primera letra de nombre, apellido finalizado con -app1, por ejemplo fbasso-app1. Es de suma importancia dejar el registry de forma pública como se ve en la imagen
 	<img width="1346" height="567" alt="image" src="https://github.com/user-attachments/assets/06c08f8a-7240-48cf-bcf5-464502506093" />
 
-5. Descargar repositorio git con código de app1
+5. Entrar a la documentación de instalación de Ingress Controller: https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengsettingupingresscontroller.htm
 	
+	Primero se debe obtener el ocid de la cuenta de usario ir a User Settings
+	<img width="1362" height="554" alt="image" src="https://github.com/user-attachments/assets/b57e9660-07b1-40a4-843d-d36cf3f784b6" />
+	<img width="1365" height="561" alt="image" src="https://github.com/user-attachments/assets/55b96676-4755-468c-8756-929b71451825" />
+	
+	Crear cluster role binding ejecutando dentro de cloud shell, agregando el ocid y cambiando el nombre de role, en este ejemplo es fbasso-adm y el ocid de mi usuario:
+	```
+	kubectl create clusterrolebinding fbasso_adm --clusterrole=cluster-admin --user=ocid1.user.oc1..aaaaa...zutq
+	```
+	<img width="1361" height="303" alt="image" src="https://github.com/user-attachments/assets/40fa9be9-6108-4c02-807a-cec026960e48" />
 
-6. Crear OCI Setup Configurar
+	Luego crear el ingress controller
+	```
+	kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.13.3/deploy/static/provider/cloud/deploy.yaml
+	```
+ 	<img width="1362" height="508" alt="image" src="https://github.com/user-attachments/assets/ea51a2cd-c473-4cf9-9f9a-5be7a52c4553" />
+
+	Validar si el namesace ingress-nginx fue creado con el comando:
+	```
+	kubectl get namespace
+	```
+	Validar si se creó el servicio de nginx
+	```
+	kubectl get service -n ingress-nginx
+ 	```
+ 	<img width="1361" height="503" alt="image" src="https://github.com/user-attachments/assets/66338703-4fa3-4c7f-8867-8f0fc03c2bf6" />
+
+ 
+7. Descargar repositorio git con código de app1 mediante el comando
+	```
+	git clone https://github.com/whiplash0104/Workshop-Sura.git
+	```
+	<img width="1359" height="325" alt="image" src="https://github.com/user-attachments/assets/40138ed1-e6f9-4500-8277-6b194589a13e" />
+
+8. Crear OCI Setup Configurar
 	Crear directorio .oci
 	```
 	$ mkdir ~/.oci
