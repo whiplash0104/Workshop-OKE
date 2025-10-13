@@ -213,5 +213,7 @@
 	Debemos obtener un resultado similar a este:
 	<img width="1362" height="507" alt="image" src="https://github.com/user-attachments/assets/3430a7af-5ae0-495e-84c5-6f24ce4d70a3" />
  
-10. 
-11. dadasdsa
+9. dassd
+	adsadsa
+11. 
+12. dadasdsa
