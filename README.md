@@ -41,21 +41,21 @@
 	Dejar todos los valores como aparecen y click en Next. Importante revisar el compartment, el nombre del cluster, versión 1.34.1, Endpoint público, Nodos Manage, workers privados, shape AMD 1 OCPU, 16 Gb RAM (puede ser menos) y 3 nodos
 	<img width="1342" height="604" alt="image" src="https://github.com/user-attachments/assets/453ee4ca-89a1-483f-bded-671fc6b166b2" />
 
-
+	Validar los datos del nuevo cluster y click en "Create cluster"
+	<img width="1338" height="563" alt="image" src="https://github.com/user-attachments/assets/9c843066-a23c-4815-96e6-cf8c4cda5225" />
 
 
 3. Una vez que finalice el proceso, crear kubeconfig
-	Click en 
-	Acces Cluster -> Cloud Shell Access -> Launch Cloud Shell 
-	![accessShell](img/accessShell.PNG)
-	Copiar el comando, similar a **No es el mismo, no copiar este ejemplo**
-	![kubeConfig](img/kubeConfig.PNG)
-    ```
-    $ oci ce cluster create-kubeconfig --cluster-id <cluster ocid> --file $HOME/.kube/config --region us-ashburn-1 --token-version 2.0.0  --kube-endpoint PUBLIC_ENDPOINT
-    ```
-    ![cloudShell](img/cloudshell.PNG)
-    
-4. Crear OCI Setup Configurar
+	Click en Acctions > Access Cluster
+	<img width="1352" height="587" alt="image" src="https://github.com/user-attachments/assets/0a7d4a34-81a0-4146-82a5-9002dc2b9b20" />
+
+	Luego hacer click en  Cloud Shell Access -> Launch Cloud Shell 
+	<img width="1342" height="604" alt="image" src="https://github.com/user-attachments/assets/f66b7af3-c821-47a3-a0d9-c7e74ec3d179" />
+	
+	Una vez que se abra cloud shell, se debe copiar el comando de conexión, pegarlo y ejecutarlo en cloud shell
+	<img width="1365" height="580" alt="image" src="https://github.com/user-attachments/assets/24b12e9f-542c-4376-ba98-7f5ccbc42460" />
+
+5. Crear OCI Setup Configurar
 	Crear directorio .oci
 	```
 	$ mkdir ~/.oci
