@@ -393,8 +393,12 @@
 	csi-0de77362-a1cf-4b70-b2e2-5b490c292b4c   50Gi       RWO            Delete           Bound       oci-onm/mgmtagent-pvc-oci-onm-mgmt-agent-0   oci-bv         <unset>                          36m
 	fss-pv-app3                                50Gi       RWX            Retain           Available                                                               <unset>                          89s
 	```
- 
-7. Cuando el pv ya esté creado, se puede asignar a un nuevo deployment
+7. Una vez creado el pv se debe crear el pvc
+	```
+
+ 	```
+
+8. Cuando el pv ya esté creado, se puede asignar a un nuevo deployment
 
 	```
 	apiVersion: v1
