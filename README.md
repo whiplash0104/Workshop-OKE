@@ -24,17 +24,27 @@
 	```
  	<img width="1343" height="587" alt="image" src="https://github.com/user-attachments/assets/f5b6c907-7ffa-40db-8187-18602aaaba7c" />
 
+	<img width="1331" height="521" alt="image" src="https://github.com/user-attachments/assets/8d92b4c6-d181-4448-9bca-0c61ded12ae8" />
 
-	
+
 1. Crear cluster OKE, dentro del compartment OKE y **nombrarlo cluster1**
 	Menu -> Developer Services -> Kubernetes Clusters (OKE)
 	**IMPORTATE: validar que todo se cree en compartment OKE**
-	![compartment](img/CompartmentOKE.PNG)
+	<img width="1288" height="576" alt="image" src="https://github.com/user-attachments/assets/46dcf869-b5a9-4295-90ab-9bc053b41d37" />
+
+	<img width="1356" height="445" alt="image" src="https://github.com/user-attachments/assets/61a41a3e-402c-4cc4-8308-1f2aa7f7e0f9" />
+
 	
 	Create Cluster -> Quick Create 
-	![quickCrate](img/createOKE.PNG)
+	<img width="1345" height="593" alt="image" src="https://github.com/user-attachments/assets/5562e64b-a2e0-4f9c-b6eb-b9fbad07f67f" />
 
-2. Una vez que finalice el proceso, crear kubeconfig
+	Dejar todos los valores como aparecen y click en Next. Importante revisar el compartment, el nombre del cluster, versión 1.34.1, Endpoint público, Nodos Manage, workers privados, shape AMD 1 OCPU, 16 Gb RAM (puede ser menos) y 3 nodos
+	<img width="1342" height="604" alt="image" src="https://github.com/user-attachments/assets/453ee4ca-89a1-483f-bded-671fc6b166b2" />
+
+
+
+
+3. Una vez que finalice el proceso, crear kubeconfig
 	Click en 
 	Acces Cluster -> Cloud Shell Access -> Launch Cloud Shell 
 	![accessShell](img/accessShell.PNG)
@@ -45,7 +55,7 @@
     ```
     ![cloudShell](img/cloudshell.PNG)
     
-3. Crear OCI Setup Configurar
+4. Crear OCI Setup Configurar
 	Crear directorio .oci
 	```
 	$ mkdir ~/.oci
