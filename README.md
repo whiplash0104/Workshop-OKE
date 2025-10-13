@@ -33,7 +33,6 @@
 	<img width="1288" height="576" alt="image" src="https://github.com/user-attachments/assets/46dcf869-b5a9-4295-90ab-9bc053b41d37" />
 
 	<img width="1356" height="445" alt="image" src="https://github.com/user-attachments/assets/61a41a3e-402c-4cc4-8308-1f2aa7f7e0f9" />
-
 	
 	Create Cluster -> Quick Create 
 	<img width="1345" height="593" alt="image" src="https://github.com/user-attachments/assets/5562e64b-a2e0-4f9c-b6eb-b9fbad07f67f" />
@@ -54,6 +53,14 @@
 	
 	Una vez que se abra cloud shell, se debe copiar el comando de conexión, pegarlo y ejecutarlo en cloud shell
 	<img width="1365" height="580" alt="image" src="https://github.com/user-attachments/assets/24b12e9f-542c-4376-ba98-7f5ccbc42460" />
+
+	Una vez que creado el archivo de configuración .kube/config (generado por le comando anterior), validar conexión mediante el comando
+	```
+	kubectl get nodes
+ 	```
+
+	<img width="1365" height="553" alt="image" src="https://github.com/user-attachments/assets/4e45bdf2-e03f-4180-9a9a-b6eadc6e8665" />
+
 
 5. Crear OCI Setup Configurar
 	Crear directorio .oci
