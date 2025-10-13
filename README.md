@@ -299,6 +299,28 @@
 	Esperar a que finalice el proceso
 	<img width="958" height="422" alt="image" src="https://github.com/user-attachments/assets/94e058a5-db07-4523-8648-c37849614cae" />
 
-4. 
+3. Una vez que el despliegue del stack de observability esté desplegado click en "Take me to Kubernetes"
+	<img width="959" height="407" alt="image" src="https://github.com/user-attachments/assets/37eeabd0-37ec-4a92-88f8-c96f0d0e80b0" />
+
+4. Se podrá ver el cluster de OKE que agregamos a monitoreo
+	Hacer click en cluster1
+	<img width="944" height="391" alt="image" src="https://github.com/user-attachments/assets/2b25fbd2-163d-40a5-babe-137d8efe59a3" />
+
+	Podemos ver un dashboard relacionado al cluster y su estado
+	<img width="934" height="404" alt="image" src="https://github.com/user-attachments/assets/bb5826c0-3f05-4c10-ba5c-9bfce7bae8f8" />
+
+## Volúmenes Persistentes
+
+1. Crear File system desde Menú Principal > Storage > File System 
+	<img width="955" height="416" alt="image" src="https://github.com/user-attachments/assets/eff3c2e7-8480-4346-a56a-c17a64995e8e" />
+
+2. Dentro de File System crear un punto de montaje NFS
+	<img width="959" height="420" alt="image" src="https://github.com/user-attachments/assets/373ef78e-c7a4-497c-8207-61ab2d30bbbb" />
+
+3. Una vez creado el File System, ir al punto de montaje
+	<img width="955" height="413" alt="image" src="https://github.com/user-attachments/assets/865166c7-f7c5-41b3-b5c0-3cc2f0591c3a" />
+
+
+
 
 
