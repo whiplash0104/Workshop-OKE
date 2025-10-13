@@ -22,6 +22,9 @@
 	Description 			  fbasso
 	Parent Compartment 	XXXX (root)
 	```
+ <img width="1343" height="587" alt="image" src="https://github.com/user-attachments/assets/f5b6c907-7ffa-40db-8187-18602aaaba7c" />
+
+
 	
 1. Crear cluster OKE, dentro del compartment OKE y **nombrarlo cluster1**
 	Menu -> Developer Services -> Kubernetes Clusters (OKE)
