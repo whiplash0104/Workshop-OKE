@@ -61,8 +61,19 @@
 
 	<img width="1365" height="553" alt="image" src="https://github.com/user-attachments/assets/4e45bdf2-e03f-4180-9a9a-b6eadc6e8665" />
 
+4. Crear Registry desde Developer Services > Container Registry
+   <img width="1357" height="565" alt="image" src="https://github.com/user-attachments/assets/ecd9e01d-64de-467e-ba25-5e8d8257f9b3" />
 
-5. Crear OCI Setup Configurar
+	Luego click en create repository
+	<img width="1355" height="542" alt="image" src="https://github.com/user-attachments/assets/bd6befe6-550e-4322-b766-05c93d70436c" />
+
+	Definir el nombre del repositorio como: primera letra de nombre, apellido finalizado con -app1, por ejemplo fbasso-app1. Es de suma importancia dejar el registry de forma pública como se ve en la imagen
+	<img width="1346" height="567" alt="image" src="https://github.com/user-attachments/assets/06c08f8a-7240-48cf-bcf5-464502506093" />
+
+5. Descargar repositorio git con código de app1
+	
+
+6. Crear OCI Setup Configurar
 	Crear directorio .oci
 	```
 	$ mkdir ~/.oci
