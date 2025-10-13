@@ -272,3 +272,33 @@
  	<img width="956" height="386" alt="image" src="https://github.com/user-attachments/assets/34750743-3c9e-4b3a-9e07-2c49dcd479bd" />
 
 	Para revisar si el ingress funciona de forma correcta entrar a la misma url anterior, pero cambiar pp1 por app2 http://129.153.239.239/app2
+
+
+## Monitoreo
+
+1. Primero habilitar log analytics
+   Menú principal > Observability & Management > Log Analytics > Home > Enable Log Analytcis
+   <img width="952" height="401" alt="image" src="https://github.com/user-attachments/assets/a681fd84-8fb6-4da7-89c8-577aaa892434" />
+
+2. Una vez habilidtado ir a Log Analytics y habilitar el cluster de kubernetes
+	Menú principal > Observability & Management > Log Analytics > Log Analytics > Solutions > Kubernetes
+	<img width="959" height="391" alt="image" src="https://github.com/user-attachments/assets/4008015e-8ec6-469d-b894-86d1a8c007ba" />
+
+	Click en Connect Cluster
+	<img width="955" height="394" alt="image" src="https://github.com/user-attachments/assets/599a6848-fcc2-4f2d-8171-b5494c96cc72" />
+
+	Seleccionar Oracle OKE
+	<img width="947" height="386" alt="image" src="https://github.com/user-attachments/assets/3c2008c1-656c-4911-933b-97082804624e" />
+
+	Seleccionar el cluster y luego Next
+	<img width="958" height="395" alt="image" src="https://github.com/user-attachments/assets/9b4fd09f-7169-4e3b-9dec-eaf4365f7330" />
+
+	Click en Configure log collection
+	<img width="959" height="397" alt="image" src="https://github.com/user-attachments/assets/311f3303-bfdc-43ef-a667-011e076cece2" />
+
+	Esperar a que finalice el proceso
+	<img width="958" height="422" alt="image" src="https://github.com/user-attachments/assets/94e058a5-db07-4523-8648-c37849614cae" />
+
+4. 
+
+
