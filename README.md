@@ -152,120 +152,66 @@
 	Entrar a la pestaña Tokens and keys y click en Generate Token
 	<img width="1358" height="614" alt="image" src="https://github.com/user-attachments/assets/ee6f681f-e3dc-4517-a2b9-559fc07370a2" />
 	Es importante señalar que el token se crea y después no se puede vovler a mostrar, por lo que debe ser almacenado en un lugar seguro.
+
+	Una vez creado el token se debe realizar ogin dentro de registry
+	```
+	podman login -u 'iders9nkzgkh/felipe.basso@oracle.com' iad.ocir.io -p 'tnQ;nH<7zwXi(FvIDS;n'
+ 	```
+
+ 	Cuando nos encontremos logeados en el registry realizar el push de la imagen:
+	```
+	podman push iad.ocir.io/iders9nkzgkh/fbasso-app1:latest
+	```
+ 	<img width="1364" height="506" alt="image" src="https://github.com/user-attachments/assets/db447fda-5fb3-4cdb-8990-f13be4782959" />
+
+8. Cuando tengamos cargada la imagen debemos modificar el deployment para cambiarla por nuestra url:
+	volver al home del usuario con el comando
+	```
+	cd ~
+ 	```
+ 	Luego cambiar al directorio yaml
+	```
+	cd Workshop-Sura/yaml/
+ 	```
+ 	Y editar la línea 22 del deployment con vi:
+	```
+	vi dp1.yaml
+ 	```
+	<img width="1354" height="495" alt="image" src="https://github.com/user-attachments/assets/84976899-df37-4d90-9d9e-f766b2bc57c5" />
 	
-	Dentro de esta configuración se debe definir
-	```
-	CAMPO									DONDE ENCONTRAR
-	===================================================================================
-	- Path (...config [/home/felipe_bas/.oci/config]: ) 			Donde quedará la configuración, dejar por default (~/.oci/config)
-	- User OCID								Profile -> oracleidentitycloudservice/XXXXX -> OCID -> Copy
-	- Tenancy OCID								Profile -> Tenancy:XXXXX -> OCID -> Copy
-	- Region 								Seleccionar la región desde las alternativas en base a la que corresponde a cada uno, esquina superior derecha		
-	- Do you want to generate a new API Signing RSA key pair? (If you decline you will be asked to supply the path to an existing key.) [Y/n]: **n Decir que no se quiere crear una llave ssh, ya se creó en el paso anterior**
-	- Enter the location of your API Signing private key file: 		~/.oci/oci_api_key.pem
-	```
-3.1 Para validar, hacer cat al archivo de configuración **Los siguientes datos son un ejemplo** 
-	```
-	$ cat ~/.oci/config
-		[DEFAULT]
-		user=ocid1.user.oc1..XXXXXXX
-		fingerprint=XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX
-		key_file=/home/XXXX/.oci/oci_api_key.pem
-		tenancy=ocid1.tenancy.oc1..XXXXXXXX
-		region=XX-XXXXX-X
-	```
-	
-4. Crear API Key (permite conectar a kubernetes y realizar el despliegue mediante Helm)
-	Menu -> Identity & Security -> User -> User Details -> API Key -> Add API Key -> Past Public Key -> Add
-	![apikey](img/userAPIKeys.PNG)
-	Pegar la public Key que se creó en paso anterior, para tener esa información ejecutar el siguiente comando y copiar todo el contenido 
-	```
-	$ cat .oci/oci_api_key_public.pem
-	```
-	![apikey](img/addAPIKeys.PNG)
+	Cambiar por la url del registry, en mi caso es:
+ 	```
+	iad.ocir.io/iders9nkzgkh/fbasso-app1:latest
+  	```
 
-4.2 El fingerprint que se crea debe ser el mismo q está en ~/.oci/config **Reemplazar XXX por el dato de cada uno**
+  	Crear namespace ns-app1
 	```
-	$ fgrep "XXXXXX" ~/.oci/config
+ 	kubectl create ns ns-app1
+ 	```
+
+ 	y crear deployment en ns recién creado con el comando:
 	```
-	
-6. Crear Token (Nos permitirá conectarnos con el OCI Registry)
-	Menu -> Identity & Security -> User -> User Details -> Auth Tokens -> Generate Token
-	![token](img/auth.PNG)
-	Se puede guardar dentro de un archivo llamado token, **Reemplazar XXXX por el token de cada uno**
-	```
-	$ echo "XXXXXX" > .oci/token
-	```
-7. Crear registry en OCI y nombraro demo **Validar que se cree en compartment OKE**
-	Menu -> Developer Services -> Container Registry -> Create Repository
-	![registry](img/registry.PNG)
-	Guardar el nombre del namespace del registry para su futuro uso
-	```
-	$ echo "XXXXX" > ~/.oci/namespaceRegistry
+	kubectl apply -f dp1.yaml 
 	```
 
-8. Crear nuevo repositorio en GitHub, nombrarlo ghithubaction-oke y dejarlo de forma pública
-	Profile -> Your Repositories -> New -> Repository Name -> Create Repository
-	
-8.1 Una vez creado el nuevo repositorio, ir a la opción "…or import code from another repository" e importar el código de la URL 
+ 	Una vez creado, crear el servicio con el comando:
 	```
-	https://github.com/whiplash0104/githubaction-OKE.git
-	```
-	
-9. Una vez sincronizado el repositorio, configurar los secrets
-	Dentro del repositorio -> Setings -> Secrets -> Actions
-	![secret](img/secrets.PNG)
-	```
-	CAMPO						DONDE ENCONTRAR
-	========================================================================================================================
-	OCI_AUTH_TOKEN					cat ~/.oci/token
-	OCI_CLI_FINGERPRINT				cat ~/.oci/config		fingerprint= d1:e2:  			
-	OCI_CLI_KEY_CONTENT				cat ~/.oci/oci_api_key.pem 		
-	OCI_CLI_REGION					cat ~/.oci/config		region=us-ashburn-1
-	OCI_CLI_TENANCY					cat ~/.oci/config		tenancy=ocid1.tenancy.oc1.
-	OCI_CLI_USER					cat ~/.oci/config		user=ocid1.user.oc1.
-	OCI_COMPARTMENT_OCID				Identity & Security > Compartment > $COMPARTMENT_NAME > ocid1.compartment.oc1.
-	OCI_DOCKER_REPO					XXX.ocir.io/XXXXXX/demo      done XXX.ocir.io es el key de la región (https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm ej: gru.ocir.io) y XXXX es en namespace del registry, cat ~/.oci/namespaceRegistry 
-	OKE_CLUSTER_OCID				Developer Services -> OKE -> cluster1 -> ocid1.cluster.oc1 
-	```
-	![namespace](img/namespaceRegistry.PNG)
+	kubectl apply -f svc1.yaml
+ 	```
 
-10. Desde la consola (abierta en el punto 2) crear namespace en kubernetes
+ 	Finalmente, crear el servicio ingress, con el comando:
 	```
-	$ kubectl create namespace demo
-	```
-	
-11. Crear Secret de tipo docker-registry para el namespace
-	Para crear el secret es necesario conocer el identificador del registry (XXX.ocir.io), para ello visitar https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm y buscar **el key de la región** en la que uno se encuentrá, por ejemplo Sao Paulo gru, Chile scl, Ashbur iad. 
-	**en el caso de Ashburn usar iad, en el caso de Sao Paulo gru** 
-	**NAMESPACE_XXXXX es el dato almacenado en ~/.oci/namespaceRegistry**
-	**USERNAME_XXXXX es el nombre dle usuario completo, en mi caso oracleidentitycloudservice/felipe.basso@oracle.com**
-	**TOKEN_XXXX es ~/.oci/token**
-	```
-	$ kubectl create secret docker-registry ocirsecret --docker-server=XXX.ocir.io --docker-username='NAMESPACE_XXXXX/USERNAME_XXXXX' --docker-password='TOKEN_XXXX' -n demo
-	```
-	**Ejemplo**
-	```
-	$ kubectl create secret docker-registry ocirsecret --docker-server=iad.ocir.io --docker-username='id5lady22ken/oracleidentitycloudservice/felipe.basso@oracle.com' --docker-password='tv432_ny!_#1' -n demo
-	```
+	kubectl apply -f ing1.yaml
+ 	```
 
-12. Realizar un cambio la rama master de nuestro repositorio y esperar que el deploy se realice de forma automática:
+ 	Una vez creados todos los componentes, validar con los comandos:
 	```
-	Editar la línea 8 del arhivo githubaction-OKE/chart/demo.yaml y cambiar   **repository: iad.ocir.io/id5lady22ken/demo** por XXX.ocir.io/REGISTRY_NAMESPACE/demo y ver que ocurre. (Recordar que el key de la región se debe obtener aquí https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm)
-	```
-
-May the force be with you!
-
-13. Validar
-	Listar servicios
-	```
-	$ kubectl get services -n demo
-	NAME         TYPE           CLUSTER-IP      EXTERNAL-IP     PORT(S)        AGE
-	demo-chart   LoadBalancer   10.96.141.165   129.80.131.252   80:30367/TCP   70s
-	```
-	Copiar la IP externa en un navegador y enter...
-
-14. Editar la línea 10 del archivo main.py por otro mensaje, nada puede malir sal
-	```
-	    return {"Hola, ¿cómo estás?"}
-	```
+	kubectl get all -n ns-app1
+ 	kubectl get services -n ns-app
+ 	kubectl get ingress -n ns-app
+ 	```
+	Debemos obtener un resultado similar a este:
+	<img width="1362" height="507" alt="image" src="https://github.com/user-attachments/assets/3430a7af-5ae0-495e-84c5-6f24ce4d70a3" />
+ 
+10. 
+11. dadasdsa
