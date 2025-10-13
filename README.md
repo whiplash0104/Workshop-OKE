@@ -320,7 +320,99 @@
 3. Una vez creado el File System, ir al punto de montaje
 	<img width="955" height="413" alt="image" src="https://github.com/user-attachments/assets/865166c7-f7c5-41b3-b5c0-3cc2f0591c3a" />
 
+	Dentro del punto de montaje, se debe copiar el ocid de este
+	<img width="956" height="428" alt="image" src="https://github.com/user-attachments/assets/fa241e85-24f6-49e1-aa05-c3d71e9cd0d0" />
+
+4. Crear el archivo sc.yaml con el siguiente contenido
+	```
+	vi sc.yaml
+ 	```
+
+	Agregar el sigueinte contenido, cambiando el valor de mntTargetId por el OCID recién copiado
+	```
+	kind: StorageClass
+	apiVersion: storage.k8s.io/v1
+	metadata:
+  	  name: pca-fss
+	provisioner: fss.csi.oraclecloud.com
+	parameters:
+  	  mntTargetId: ocid1.mounttarget.oc1.iad.aaaaaby27vkhxz6fnfqwillqojxwiotjmfsc2ylefuzaaaaa
+ 	```
+	<img width="958" height="320" alt="image" src="https://github.com/user-attachments/assets/04989ee6-156b-4a11-9b4c-25bad0644db4" />
+
+	Una vez creado el archivo aplicarlo n kubernetes
+ 	```
+	kubectl apply -f sc.yaml
+ 	```
+
+	Validar con
+	```
+	kubectl get sc
+	NAME               PROVISIONER                       RECLAIMPOLICY   VOLUMEBINDINGMODE      ALLOWVOLUMEEXPANSION   AGE
+	oci                oracle.com/oci                    Delete          Immediate              false                  13d
+	oci-bv (default)   blockvolume.csi.oraclecloud.com   Delete          WaitForFirstConsumer   true                   13d
+	pca-fss            fss.csi.oraclecloud.com           Delete          Immediate              false                  46s
+	```
+ 
+6. Crear un persistent volume de la siguiente forma
+	```
+ 	touch pv.yaml
+	```
+
+	Copiar la ip y el punto export del punto de montaje
+	<img width="947" height="416" alt="image" src="https://github.com/user-attachments/assets/e31263da-9d44-4872-8694-0b7ec50a3d7e" />
 
 
+	Copiar el ocid del filesystem
+	<img width="944" height="415" alt="image" src="https://github.com/user-attachments/assets/8279851e-becb-40ef-8e43-30d2468a47ca" />
 
+	
+	Agregar el siguiente contenido
+	```
+	apiVersion: v1
+	kind: PersistentVolume
+	metadata:
+	  name: fss-pv-app3
+	spec:
+	  capacity:
+	    storage: 50Gi
+	  volumeMode: Filesystem
+	  accessModes:
+	    - ReadWriteMany
+	  persistentVolumeReclaimPolicy: Retain
+	  csi:
+	    driver: fss.csi.oraclecloud.com
+	    volumeHandle: ocid1.filesystem.oc1.iad.aaaaaaaaaamkupcbnfqwillqojxwiotjmfsc2ylefuzaaaaa:10.0.10.104:/FileSystem-20251013-2030-12
+ 	```
+	<img width="959" height="323" alt="image" src="https://github.com/user-attachments/assets/2bb40cc3-ff03-46c0-bc9e-b1d6aa79edd0" />
 
+	Validar la creación del pv mediante:
+	```
+	kubectl get pv
+	NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                                        STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
+	csi-0de77362-a1cf-4b70-b2e2-5b490c292b4c   50Gi       RWO            Delete           Bound       oci-onm/mgmtagent-pvc-oci-onm-mgmt-agent-0   oci-bv         <unset>                          36m
+	fss-pv-app3                                50Gi       RWX            Retain           Available                                                               <unset>                          89s
+	```
+ 
+7. Cuando el pv ya esté creado, se puede asignar a un nuevo deployment
+
+	```
+	apiVersion: v1
+	kind: Pod
+	metadata:
+	  name: fss-dynamic-app
+	spec:
+	  containers:
+	    - name: nginx
+	      image: nginx:latest
+	      ports:
+	        - name: http
+	          containerPort: 80
+ 	     volumeMounts:
+	        - name: persistent-storage
+	          mountPath: /usr/share/nginx/html
+	  volumes:
+	  - name: persistent-storage
+	    persistentVolumeClaim:
+	      claimName: fss-pv-app3
+ 	```
