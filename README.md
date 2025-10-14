@@ -381,27 +381,61 @@
 	    path: "/FileSystem-20251013-2030-12"
 	    readOnly: false
  	```
-	<img width="959" height="323" alt="image" src="https://github.com/user-attachments/assets/2bb40cc3-ff03-46c0-bc9e-b1d6aa79edd0" />
+	<img width="958" height="320" alt="image" src="https://github.com/user-attachments/assets/00ff9010-80ff-4409-896f-64afc21346a5" />
+
 
 	Validar la creación del pv mediante:
 	```
 	kubectl get pv
 	NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM                                        STORAGECLASS   VOLUMEATTRIBUTESCLASS   REASON   AGE
-	csi-0de77362-a1cf-4b70-b2e2-5b490c292b4c   50Gi       RWO            Delete           Bound       oci-onm/mgmtagent-pvc-oci-onm-mgmt-agent-0   oci-bv         <unset>                          36m
-	fss-pv-app3                                50Gi       RWX            Retain           Available                                                               <unset>                          89s
+	csi-0de77362-a1cf-4b70-b2e2-5b490c292b4c   50Gi       RWO            Delete           Bound       oci-onm/mgmtagent-pvc-oci-onm-mgmt-agent-0   oci-bv         <unset>                          17h
+	fss-pv                                     200Gi      RWX            Retain           Bound       ns-app3/fss-pvc                              pca-fss        <unset>                          5m31s
 	```
-7. Una vez creado el pv se debe crear el pvc
+7. Una vez creado el pv crear namespace ns-app3 y el pvc
 	```
-
+	kubectl create ns ns-app3
+ 	touch pvc.yaml
  	```
 
-8. Cuando el pv ya esté creado, se puede asignar a un nuevo deployment
+	Dentro del archivo pvc.yaml agregar el siguiente contenido:
+	```
+	apiVersion: v1
+	kind: PersistentVolumeClaim
+	metadata:
+	  name: fss-pvc
+	  namespace: ns-app3
+	spec:
+	  storageClassName: pca-fss
+	  accessModes:
+	    - ReadWriteMany
+	  resources:
+	    requests:
+	      storage: 200Gi
+	  volumeName: fss-pv
+ 	```
 
+ 	Y crear pvc
+	```
+	kubectl apply -f pvc.yaml
+ 	```
+
+ 	Validar con el comando
+	```
+	kubectl get pvc -n ns-app3
+ 	```
+
+9. Cuando el pv ya esté creado, se puede asignar a un nuevo pod
+	```
+ 	touch pod.yaml
+ 	```
+
+ 	Agregar el contenid
 	```
 	apiVersion: v1
 	kind: Pod
 	metadata:
 	  name: fss-dynamic-app
+	  namespace: ns-app3
 	spec:
 	  containers:
 	    - name: nginx
@@ -409,11 +443,16 @@
 	      ports:
 	        - name: http
 	          containerPort: 80
- 	     volumeMounts:
+	      volumeMounts:
 	        - name: persistent-storage
 	          mountPath: /usr/share/nginx/html
 	  volumes:
 	  - name: persistent-storage
 	    persistentVolumeClaim:
-	      claimName: fss-pv-app3
+	      claimName: fss-pvc
+ 	```
+
+ 	Finalmente aplicar el yaml
+	```
+	kubectl apply -f pod.yaml
  	```
