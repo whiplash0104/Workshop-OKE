@@ -456,3 +456,6 @@
 	```
 	kubectl apply -f pod.yaml
  	```
+
+	Desde la consola de OCI, se puede validar el uso del NFS a nivel de moun target
+	<img width="947" height="461" alt="image" src="https://github.com/user-attachments/assets/c43be7bb-a84e-447d-bcf8-5e482dc47be0" />
