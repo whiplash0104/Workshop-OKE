@@ -333,10 +333,10 @@
 	kind: StorageClass
 	apiVersion: storage.k8s.io/v1
 	metadata:
-  	  name: pca-fss
+	  name: pca-fss
 	provisioner: fss.csi.oraclecloud.com
 	parameters:
-  	  mntTargetId: ocid1.mounttarget.oc1.iad.aaaaaby27vkhxz6fnfqwillqojxwiotjmfsc2ylefuzaaaaa
+	  mntTargetId: ocid1.mounttarget.oc1.iad.aaaaaby27vkhxz6fnfqwillqojxwiotjmfsc2ylefuzaaaaa
  	```
 	<img width="958" height="320" alt="image" src="https://github.com/user-attachments/assets/04989ee6-156b-4a11-9b4c-25bad0644db4" />
 
@@ -361,28 +361,25 @@
 
 	Copiar la ip y el punto export del punto de montaje
 	<img width="947" height="416" alt="image" src="https://github.com/user-attachments/assets/e31263da-9d44-4872-8694-0b7ec50a3d7e" />
-
-
-	Copiar el ocid del filesystem
-	<img width="944" height="415" alt="image" src="https://github.com/user-attachments/assets/8279851e-becb-40ef-8e43-30d2468a47ca" />
-
 	
 	Agregar el siguiente contenido
 	```
 	apiVersion: v1
 	kind: PersistentVolume
 	metadata:
-	  name: fss-pv-app3
+	  name: fss-pv
 	spec:
+	  storageClassName: pca-fss
 	  capacity:
-	    storage: 50Gi
-	  volumeMode: Filesystem
+	    storage: 200Gi
 	  accessModes:
 	    - ReadWriteMany
-	  persistentVolumeReclaimPolicy: Retain
-	  csi:
-	    driver: fss.csi.oraclecloud.com
-	    volumeHandle: ocid1.filesystem.oc1.iad.aaaaaaaaaamkupcbnfqwillqojxwiotjmfsc2ylefuzaaaaa:10.0.10.104:/FileSystem-20251013-2030-12
+	  mountOptions:
+	    - nosuid
+	  nfs:
+	    server: 10.0.10.104
+	    path: "/FileSystem-20251013-2030-12"
+	    readOnly: false
  	```
 	<img width="959" height="323" alt="image" src="https://github.com/user-attachments/assets/2bb40cc3-ff03-46c0-bc9e-b1d6aa79edd0" />
 
