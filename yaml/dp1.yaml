@@ -4,7 +4,6 @@ metadata:
   name: app1-dp
   labels:
     app: app1
-  namespace: ns-app1
 spec:
   selector:
     matchLabels:
