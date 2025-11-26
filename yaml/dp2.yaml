@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app2-dp
+  labels:
+    app: app2
+spec:
+  selector:
+    matchLabels:
+      app: app2
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: app2
+    spec:
+      imagePullSecrets:
+      - name: ocirsecret
+      containers:
+      - name: app2
+        image: iad.ocir.io/idlhjo6dp3bd/app2:latest
+        ports:
+        - containerPort: 80
