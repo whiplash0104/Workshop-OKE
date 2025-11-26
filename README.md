@@ -184,31 +184,32 @@
 	iad.ocir.io/iders9nkzgkh/fbasso-app1:latest
   	```
 
-  	Crear namespace ns-app1
+  	Crear namespace apellido-ns-app1
 	```
- 	kubectl create ns ns-app1
+ 	EJEMPLO:
+ 	kubectl create ns basso-ns-app1
  	```
 
  	y crear deployment en ns recién creado con el comando:
 	```
-	kubectl apply -f dp1.yaml 
+	kubectl apply -f dp1.yaml -n basso-ns-app1
 	```
 
  	Una vez creado, crear el servicio con el comando:
 	```
-	kubectl apply -f svc1.yaml
+	kubectl apply -f svc1.yaml -n basso-ns-app1
  	```
 
  	Finalmente, crear el servicio ingress, con el comando:
 	```
-	kubectl apply -f ing1.yaml
+	kubectl apply -f ing1.yaml -n basso-ns-app1
  	```
 
  	Una vez creados todos los componentes, validar con los comandos:
 	```
-	kubectl get all -n ns-app1
- 	kubectl get services -n ns-app1
- 	kubectl get ingress -n ns-app1
+	kubectl get all -n basso-ns-app1
+ 	kubectl get services -n basso-ns-app1
+ 	kubectl get ingress -n basso-ns-app1
  	```
 	Debemos obtener un resultado similar a este:
 	<img width="1362" height="507" alt="image" src="https://github.com/user-attachments/assets/3430a7af-5ae0-495e-84c5-6f24ce4d70a3" />
@@ -251,23 +252,23 @@
  	```
  	<img width="958" height="404" alt="image" src="https://github.com/user-attachments/assets/a3e2aae5-1604-47ab-a34f-9ffc2dc80d54" />
 
-	Crear namespace ns-app2
+	Crear namespace basso-ns-app2
 	```
-	kubectl create ns ns-app2
+	kubectl create ns basso-ns-app2
 	```
  
  	Luego crear el deployment, el servicio y el ingress controller
  	```
-	kubectl apply -f dp2.yaml
-  	kubectl apply -f svc2.yaml
-  	kubectl apply -f ing2.yaml
+	kubectl apply -f dp2.yaml -n basso-ns-app2
+  	kubectl apply -f svc2.yaml -n basso-ns-app2
+  	kubectl apply -f ing2.yaml -n basso-ns-app2
  	```
 
 	Validar que todo esté creado de forma correcta
 	```
-	kubectl get all -n ns-app2
- 	kubectl get services -n ns-app2
- 	kubectl get ingress -n ns-app2
+	kubectl get all -n basso-ns-app2
+ 	kubectl get services -n basso-ns-app2
+ 	kubectl get ingress -n basso-ns-app2
  	```
  	<img width="956" height="386" alt="image" src="https://github.com/user-attachments/assets/34750743-3c9e-4b3a-9e07-2c49dcd479bd" />
 
