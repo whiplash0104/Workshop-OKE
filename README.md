@@ -155,7 +155,7 @@
 
 	Una vez creado el token se debe realizar ogin dentro de registry
 	```
-	podman login -u 'iders9nkzgkh/felipe.basso@oracle.com' iad.ocir.io -p 'tnQ;nH<7zwXi(FvIDS;n'
+	podman login -u 'axse6s5ncehl/felipe.basso@oracle.com' scl.ocir.io -p 'TQkZOT9UPc-msm[b)GO4'
  	```
 
  	Cuando nos encontremos logeados en el registry realizar el push de la imagen:
