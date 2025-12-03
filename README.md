@@ -101,14 +101,15 @@
  
 6. Descargar repositorio git con código de app1 mediante el comando
 	```
-	git clone https://github.com/whiplash0104/Workshop-Sura.git
+	git clone https://github.com/whiplash0104/Workshop-OKE.git
 	```
-	<img width="1359" height="325" alt="image" src="https://github.com/user-attachments/assets/40138ed1-e6f9-4500-8277-6b194589a13e" />
+	<img width="788" height="189" alt="image" src="https://github.com/user-attachments/assets/789cdd5c-b566-4134-a9ee-18d3c8404cc4" />
+
 
 7. Crear imagen de contenedor
-	Ir al directorio Workshop-Sura/Docker
+	Ir al directorio ingress-app1/Docker
 	```
-	cd Workshop-Sura/Docker
+	cd ingress-app1/Docker
 	```
  	Dentro del directorio crear la imagen con el mimso nombre del registry (primera letra del nombre apellido y -app1), asignar el tag latest, como por ejemplo:
 	```
@@ -135,13 +136,13 @@
 
  	Con esta informaicón definimos el tag en la imagen recién creada
 	```
-	podman tag localhost/fbasso-app1:latest iad.ocir.io/iders9nkzgkh/fbasso-app1:latest
+	podman tag localhost/fbasso-app1:latest scl.ocir.io/axse6s5ncehl/fbasso-app1:latest
 	```
  	Volvemos a listar nuestras imágenes y debemos ver la que creamos recién:
  	```
  	felipe_bas@cloudshell:Docker (us-ashburn-1)$ podman images
 	REPOSITORY                            TAG            IMAGE ID      CREATED        SIZE
-	iad.ocir.io/iders9nkzgkh/fbasso-app1  latest         8e35357216b3  8 minutes ago  55.7 MB
+	iad.ocir.io/axse6s5ncehl/fbasso-app1  latest         8e35357216b3  8 minutes ago  55.7 MB
 	localhost/fbasso-app1                 latest         8e35357216b3  8 minutes ago  55.7 MB
 	docker.io/library/nginx               1.10.1-alpine  2cd900f340dd  8 years ago    55.7 MB
 	```
@@ -155,23 +156,20 @@
 
 	Una vez creado el token se debe realizar ogin dentro de registry
 	```
-	podman login -u 'axse6s5ncehl/felipe.basso@oracle.com' scl.ocir.io -p 'TQkZOT9UPc-msm[b)GO4'
+	podman login -u 'axse6s5ncehl/felipe.basso@oracle.com' scl.ocir.io -p 'TQkZOT9UPXXXXXXX'
  	```
 
  	Cuando nos encontremos logeados en el registry realizar el push de la imagen:
 	```
-	podman push iad.ocir.io/iders9nkzgkh/fbasso-app1:latest
+	podman push scl.ocir.io/axse6s5ncehl/fbasso-app1:latest
 	```
- 	<img width="1364" height="506" alt="image" src="https://github.com/user-attachments/assets/db447fda-5fb3-4cdb-8990-f13be4782959" />
+ 	<img width="846" height="221" alt="image" src="https://github.com/user-attachments/assets/ae22e3c2-ca90-490a-890a-9e44e376be4e" />
+
 
 8. Cuando tengamos cargada la imagen debemos modificar el deployment para cambiarla por nuestra url:
-	volver al home del usuario con el comando
+ 	Cambiar al directorio yaml
 	```
-	cd ~
- 	```
- 	Luego cambiar al directorio yaml
-	```
-	cd Workshop-Sura/yaml/
+	cd ../yaml/
  	```
  	Y editar la línea 22 del deployment con vi:
 	```
