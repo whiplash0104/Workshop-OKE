@@ -101,7 +101,7 @@
  
 6. Descargar repositorio git con código de app1 mediante el comando
 	```
-	git clone https://github.com/whiplash0104/Workshop-OKE.git
+	git clone https://github.com/whiplash0104/ingress-app1.git
 	```
 	<img width="788" height="189" alt="image" src="https://github.com/user-attachments/assets/789cdd5c-b566-4134-a9ee-18d3c8404cc4" />
 
@@ -179,7 +179,7 @@
 	
 	Cambiar por la url del registry, en mi caso es:
  	```
-	iad.ocir.io/iders9nkzgkh/fbasso-app1:latest
+	scl.ocir.io/axse6s5ncehl/fbasso-app1:latest
   	```
 
   	Crear namespace apellido-ns-app1
@@ -238,15 +238,15 @@
 
  	cd ingress-app2/Docker/
  	podman build --tag fbasso-app2:latest -f Dockerfile
- 	podman tag localhost/fbasso-app2:latest iad.ocir.io/iders9nkzgkh/fbasso-app2:latest
- 	podman push iad.ocir.io/iders9nkzgkh/fbasso-app2:latest
+ 	podman tag localhost/fbasso-app2:latest scl.ocir.io/axse6s5ncehl/fbasso-app2:latest
+ 	podman push scl.ocir.io/axse6s5ncehl/fbasso-app2:latest
 	```
  	<img width="956" height="410" alt="image" src="https://github.com/user-attachments/assets/95e052f5-8d61-4c99-8483-1d2c43fc73c2" />
 
 13. Dentro del directorio ingress-app2/yaml/ editar el archivo dp2.yaml, cambiando la url de la imagen por la recién creada
 	```
 	vi dp2.yaml
- 	iad.ocir.io/iders9nkzgkh/fbasso-app2:latest
+ 	scl.ocir.io/axse6s5ncehl/fbasso-app2:latest
  	```
  	<img width="958" height="404" alt="image" src="https://github.com/user-attachments/assets/a3e2aae5-1604-47ab-a34f-9ffc2dc80d54" />
 
