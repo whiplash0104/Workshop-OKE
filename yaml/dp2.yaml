@@ -18,6 +18,6 @@ spec:
       - name: ocirsecret
       containers:
       - name: app2
-        image: iad.ocir.io/idlhjo6dp3bd/app2:latest
+        image: scl.ocir.io/axv2hvc6fy8b/app2:latest
         ports:
         - containerPort: 80
