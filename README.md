@@ -107,7 +107,15 @@
 	<img width="788" height="189" alt="image" src="https://github.com/user-attachments/assets/789cdd5c-b566-4134-a9ee-18d3c8404cc4" />
 
 
-7. Crear imagen de contenedor
+7. Cambiar arquitectura cloud shell
+	Abrir cloud shell
+	Ir a actions > architecture 
+	<img width="1345" height="376" alt="image" src="https://github.com/user-attachments/assets/e5a1fd0d-0c77-4087-b6d3-7e1850e9dd72" />
+
+	Selecionar x86_64 y click en Confirm and Restart
+	<img width="713" height="545" alt="image" src="https://github.com/user-attachments/assets/55daa01c-7296-4f0f-a951-0d5d80c2e419" />
+
+8. Crear imagen de contenedor
 	Ir al directorio ingress-app1/Docker
 	```
 	cd ingress-app1/Docker
@@ -167,7 +175,7 @@
  	<img width="846" height="221" alt="image" src="https://github.com/user-attachments/assets/ae22e3c2-ca90-490a-890a-9e44e376be4e" />
 
 
-8. Cuando tengamos cargada la imagen debemos modificar el deployment para cambiarla por nuestra url:
+9. Cuando tengamos cargada la imagen debemos modificar el deployment para cambiarla por nuestra url:
  	Cambiar al directorio yaml
 	```
 	cd ../yaml/
@@ -213,7 +221,7 @@
 	Debemos obtener un resultado similar a este:
 	<img width="1362" height="507" alt="image" src="https://github.com/user-attachments/assets/3430a7af-5ae0-495e-84c5-6f24ce4d70a3" />
  
-9. Una vez validada la creación de los 3 componentes, entrar desde el navigador web a la ip pública del servicio apuntando a la app1, como ejemplo:
+10. Una vez validada la creación de los 3 componentes, entrar desde el navigador web a la ip pública del servicio apuntando a la app1, como ejemplo:
 	```
 	felipe_bas@cloudshell:~ (us-ashburn-1)$ kubectl get service -n ingress-nginx
 	NAME                                 TYPE           CLUSTER-IP      EXTERNAL-IP       PORT(S)                      AGE
@@ -224,7 +232,7 @@
 
 	En este ejemplo debemos ingresar a http://129.153.239.239/app1, en el caso de cada uno, se debe cambiar la ip pública
  
-10. Una vez creado el servicio, debemos crear un nuevo registry
+11. Una vez creado el servicio, debemos crear un nuevo registry
     ```
 	Developer Services > Container Registry
 	Access: Public
