@@ -18,6 +18,6 @@ spec:
       - name: ocirsecret
       containers:
       - name: app2
-        image: scl.ocir.io/axv2hvc6fy8b/app2:latest
+        image: ord.ocir.io/axcxnpccpk4b/fbasso-app2:latest
         ports:
         - containerPort: 80
