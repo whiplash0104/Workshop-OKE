@@ -145,7 +145,7 @@
 
  	Con esta informaicón definimos el tag en la imagen recién creada
 	```
-	podman tag localhost/fbasso-app1:latest scl.ocir.io/axse6s5ncehl/fbasso-app1:latest
+	podman tag localhost/fbasso-app1:latest ord.ocir.io/axcxnpccpk4b/fbasso-app1:latest
 	```
  	Volvemos a listar nuestras imágenes y debemos ver la que creamos recién:
  	```
@@ -165,12 +165,12 @@
 
 	Una vez creado el token se debe realizar ogin dentro de registry
 	```
-	podman login -u 'axse6s5ncehl/felipe.basso@oracle.com' scl.ocir.io -p 'TQkZOT9UPXXXXXXX'
+	podman login -u 'axcxnpccpk4b/felipe.basso@oracle.com' ord.ocir.io -p 'TQkZOT9UPXXXXXXX'
  	```
 
  	Cuando nos encontremos logeados en el registry realizar el push de la imagen:
 	```
-	podman push scl.ocir.io/axse6s5ncehl/fbasso-app1:latest
+	podman push ord.ocir.io/axcxnpccpk4b/fbasso-app1:latest
 	```
  	<img width="846" height="221" alt="image" src="https://github.com/user-attachments/assets/ae22e3c2-ca90-490a-890a-9e44e376be4e" />
 
@@ -188,7 +188,7 @@
 	
 	Cambiar por la url del registry, en mi caso es:
  	```
-	scl.ocir.io/axse6s5ncehl/fbasso-app1:latest
+	ord.ocir.io/axcxnpccpk4b/fbasso-app1:latest
   	```
 
   	Crear namespace ns-app1
@@ -247,15 +247,15 @@
 
  	cd ingress-app2/Docker/
  	podman build --tag fbasso-app2:latest -f Dockerfile
- 	podman tag localhost/fbasso-app2:latest scl.ocir.io/axse6s5ncehl/fbasso-app2:latest
- 	podman push scl.ocir.io/axse6s5ncehl/fbasso-app2:latest
+ 	podman tag localhost/fbasso-app2:latest ord.ocir.io/axcxnpccpk4b/fbasso-app2:latest
+ 	podman push ord.ocir.io/axcxnpccpk4b/fbasso-app2:latest
 	```
  	<img width="956" height="410" alt="image" src="https://github.com/user-attachments/assets/95e052f5-8d61-4c99-8483-1d2c43fc73c2" />
 
 13. Dentro del directorio ingress-app2/yaml/ editar el archivo dp2.yaml, cambiando la url de la imagen por la recién creada
 	```
 	vi dp2.yaml
- 	scl.ocir.io/axse6s5ncehl/fbasso-app2:latest
+ 	ord.ocir.io/axcxnpccpk4b/fbasso-app2:latest
  	```
  	<img width="958" height="404" alt="image" src="https://github.com/user-attachments/assets/a3e2aae5-1604-47ab-a34f-9ffc2dc80d54" />
 
